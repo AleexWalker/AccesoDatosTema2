@@ -8,9 +8,12 @@ class FitxerImatge(fEnt: File) {
     var f: File = File("Penyagolosa.bmp")
 
     init {
-        // Constructor
-        // Control d'existència del fitxer i control de l'extensió .bmp (traure missatges d'error)
-        // En cas que tot siga correcte, inicialitzar f amb fEnt
+
+        if (f.exists())                                         // Constructor
+            if (f.name.takeLast(3).equals("bmp"))            // Control d'existència del fitxer i control de l'extensió .bmp (traure missatges d'error)
+                f = fEnt                                        // En cas que tot siga correcte, inicialitzar f amb fEnt
+        else
+            print("El fichero escogido no existe o su extension no es la adecuada")
     }
 
     fun transformaNegatiu() {
