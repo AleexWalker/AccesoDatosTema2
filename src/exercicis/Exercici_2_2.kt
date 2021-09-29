@@ -2,8 +2,7 @@ package exercicis
 
 import javax.swing.*
 import java.awt.*
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
 
 class Exercici_2_2_Pantalla : JFrame() {
     val et_f = JLabel("Fitxer:")
@@ -40,19 +39,31 @@ class Exercici_2_2_Pantalla : JFrame() {
         pack()
 
         obrir.addActionListener {
-            val ficheroEntrada = FileInputStream(fitxer.text.toString())              // Instruccions per a bolcar el contingut del fitxer en el JTextArea
+            try {
+                val fichero = fitxer.text.toString()
+                val ficheroEntrada = FileReader(fichero)              // Instruccions per a bolcar el contingut del fitxer en el JTextArea
+                val ficheroSalida = FileWriter(fichero, true)
 
-            var lectura = ficheroEntrada.read()
+                var lectura = ficheroEntrada.read()
+                area.text = ""
 
-            while (lectura != -1) {
-                area.text = lectura.toString(lectura)
-                println(lectura.toChar())
-                lectura = ficheroEntrada.read()
+                while (lectura != -1) {
+                    area.append(lectura.toChar().toString())
+                    lectura = ficheroEntrada.read()
+                }
+                ficheroEntrada.close()
+                ficheroSalida.close()
+            } catch (ex:FileNotFoundException){
+                fitxer.text = "Fichero Inexistente"
             }
+
         }
 
         guardar.addActionListener {
-            val ficheroEscritura = FileOutputStream(fitxer.text.toString())               // Instruccions per a guardar el contingut del JTextArea al fitxer.
+            val fichero = fitxer.text.toString()
+
+            val text = area.text.toString()                       // Instruccions per a guardar el contingut del JTextArea al fitxer.
+            File(fichero).writeText(text)
 
         }
     }
