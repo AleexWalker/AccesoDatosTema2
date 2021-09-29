@@ -54,7 +54,7 @@ class Exercici_2_2_Pantalla : JFrame() {
                 ficheroEntrada.close()
                 ficheroSalida.close()
             } catch (ex:FileNotFoundException){
-                fitxer.text = "Fichero Inexistente"
+                fitxer.text = "¡Fichero Inexistente o terminacion erronea!"
             }
 
         }
