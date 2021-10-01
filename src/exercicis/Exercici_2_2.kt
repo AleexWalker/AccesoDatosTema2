@@ -54,16 +54,19 @@ class Exercici_2_2_Pantalla : JFrame() {
                 ficheroEntrada.close()
                 ficheroSalida.close()
             } catch (ex:FileNotFoundException){
-                fitxer.text = "¡Fichero Inexistente o terminacion erronea!"
+                area.text = "¡Fichero Inexistente o terminacion erronea!"
             }
 
         }
 
         guardar.addActionListener {
-            val fichero = fitxer.text.toString()
-
-            val text = area.text.toString()                       // Instruccions per a guardar el contingut del JTextArea al fitxer.
-            File(fichero).writeText(text)
+            if (fitxer.text.toString() == "")
+                area.text = "¡Primero debes seleccionar un fichero!"
+            else {
+                val fichero = fitxer.text.toString()
+                val text = area.text.toString()                       // Instruccions per a guardar el contingut del JTextArea al fitxer.
+                File(fichero).writeText(text)
+            }
 
         }
     }
